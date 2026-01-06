@@ -10,23 +10,23 @@ const data = {
     ]
   },
   2: {
-    tag: "Biotech",
-    ticker: "LLY",
-    title: "Peptide Synthesis Bottlenecks",
-    body: "Liquid-phase synthesis (LPS) is failing to meet purity standards at commercial scale. This entrenches the moat for existing solid-phase (SPPS) capacity holders. New entrants face 12-18 month delays.",
+    tag: "FinTech",
+    ticker: "PYPL",
+    title: "PYUSD Stablecoin Infrastructure Expansion",
+    body: "PayPal's PYUSD stablecoin migration to Solana introduces sub-cent transaction costs ($0.0002 vs $2-5 on Ethereum), enabling micropayment viability. Cross-border settlement latency drops from T+2 to real-time, directly threatening correspondent banking revenue pools. Integration with Xoom positions PYPL to capture 15-20% of the $200B remittance TAM at 10x lower take rates than traditional rails.",
     metrics: [
-      { label: "Purity Gap", value: "-4.2%" },
-      { label: "Delay", value: "18 mo" }
+      { label: "TX Cost Reduction", value: "-99.9%" },
+      { label: "Remittance TAM", value: "$30B" }
     ]
   },
   3: {
-    tag: "Infrastructure",
-    ticker: "VRT",
-    title: "Liquid Cooling Market Share",
-    body: "Direct-to-Chip (DLC) cooling is winning 80% of retrofit RFPs. Recent safety data has assuaged insurer concerns regarding leakage, opening the floodgates for enterprise adoption.",
+    tag: "Software",
+    ticker: "CRM",
+    title: "Agentforce Autonomous Sales Agent Rollout",
+    body: "Salesforce's Agentforce represents a fundamental shift from copilot to autonomous agent architecture. Early enterprise pilots show 40% reduction in SDR headcount requirements while maintaining conversion rates. The agent handles end-to-end lead qualification, meeting scheduling, and CRM hygiene—tasks consuming 60-70% of sales ops bandwidth. Pricing at $2/conversation vs $75/user/month for Sales Cloud creates a new margin structure with 85%+ gross margins and eliminates seat-based revenue ceiling.",
     metrics: [
-      { label: "RFP Win Rate", value: "82%" },
-      { label: "TAM CAGR", value: "45%" }
+      { label: "SDR Efficiency Gain", value: "+40%" },
+      { label: "Gross Margin", value: "85%" }
     ]
   }
 };

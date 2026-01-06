@@ -70,70 +70,77 @@ function loadSignal(id) {
     `;
 }
 
-document.addEventListener('DOMContentLoaded', () => { renderMobilePlatform(); renderMobileProcess(); window.addEventListener('resize', () => { renderMobilePlatform(); renderMobileProcess(); });
-  loadSignal(1);
+document.addEventListener('DOMContentLoaded', () => {
+  renderMobilePlatform();
+  renderMobileProcess();
+  window.addEventListener('resize', () => {
+    renderMobilePlatform();
+    renderMobileProcess();
+  });
+});
 
-  // Form handling with Formspree
-  const FORMSPREE_URL = 'https://formspree.io/f/mojavory';
+loadSignal(1);
 
-  document.querySelectorAll('form').forEach(f => {
-    f.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = f.querySelector('button');
-      const input = f.querySelector('input[type="email"]');
-      const email = input.value;
+// Form handling with Formspree
+const FORMSPREE_URL = 'https://formspree.io/f/mojavory';
 
-      btn.disabled = true;
-      btn.innerText = "Saving...";
+document.querySelectorAll('form').forEach(f => {
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = f.querySelector('button');
+    const input = f.querySelector('input[type="email"]');
+    const email = input.value;
 
-      try {
-        const response = await fetch(FORMSPREE_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: email,
-            source: f.id || 'hero'
-          })
-        });
+    btn.disabled = true;
+    btn.innerText = "Saving...";
 
-        if (response.ok) {
-          btn.innerText = "✓ Joined!";
-          input.value = '';
-          setTimeout(() => {
-            btn.innerText = "Join the Waitlist";
-            btn.disabled = false;
-          }, 3000);
-        } else {
-          throw new Error('Submission failed');
-        }
-      } catch (err) {
-        console.error('Waitlist error:', err);
-        btn.innerText = "Error - Try Again";
-        btn.disabled = false;
+    try {
+      const response = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          source: f.id || 'hero'
+        })
+      });
+
+      if (response.ok) {
+        btn.innerText = "✓ Joined!";
+        input.value = '';
+        setTimeout(() => {
+          btn.innerText = "Join the Waitlist";
+          btn.disabled = false;
+        }, 3000);
+      } else {
+        throw new Error('Submission failed');
       }
+    } catch (err) {
+      console.error('Waitlist error:', err);
+      btn.innerText = "Error - Try Again";
+      btn.disabled = false;
+    }
+  });
+});
+
+// Research Process Interactions
+const steps = document.querySelectorAll('.proc-node');
+const popups = document.querySelectorAll('.proc-popup');
+
+if (steps.length && popups.length) {
+  steps.forEach((step, index) => {
+    // Note: index matches the popup order (0 -> popup-1)
+    step.addEventListener('mouseenter', () => {
+      popups.forEach(p => p.classList.remove('active')); // Reset others
+      if (popups[index]) popups[index].classList.add('active');
+    });
+
+    step.addEventListener('mouseleave', () => {
+      if (popups[index]) popups[index].classList.remove('active');
     });
   });
-
-  // Research Process Interactions
-  const steps = document.querySelectorAll('.proc-node');
-  const popups = document.querySelectorAll('.proc-popup');
-
-  if (steps.length && popups.length) {
-    steps.forEach((step, index) => {
-      // Note: index matches the popup order (0 -> popup-1)
-      step.addEventListener('mouseenter', () => {
-        popups.forEach(p => p.classList.remove('active')); // Reset others
-        if (popups[index]) popups[index].classList.add('active');
-      });
-
-      step.addEventListener('mouseleave', () => {
-        if (popups[index]) popups[index].classList.remove('active');
-      });
-    });
-  }
-});
+}
 
 // Experimental: Interactive Data Grid
 class GridAnimation {
@@ -250,22 +257,94 @@ new GridAnimation();
 function renderMobilePlatform() {
   const container = document.getElementById('plat-content');
   if (!container) return;
+
   if (window.innerWidth <= 768) {
+    // Render all cards for horizontal scroll
     const cards = Object.keys(data).map(id => {
       const signal = data[id];
-      return `<div class="mobile-platform-card"><div class="mobile-card-ticker">${signal.ticker}</div><div class="mobile-card-tag">${signal.tag}</div><div class="mobile-card-title">${signal.title}</div><div class="mobile-card-body">${signal.body.substring(0, 150)}...</div><div class="mobile-card-metrics">${signal.metrics.map(m => `<div class="mobile-metric"><span class="mobile-metric-val">${m.value}</span><span class="mobile-metric-label">${m.label}</span></div>`).join('')}</div></div>`;
+      return `
+        <div class="mobile-platform-card">
+          <div class="mobile-card-ticker">${signal.ticker}</div>
+          <div class="mobile-card-tag">${signal.tag}</div>
+          <div class="mobile-card-title">${signal.title}</div>
+          <div class="mobile-card-body">${signal.body.substring(0, 150)}...</div>
+          <div class="mobile-card-metrics">
+            ${signal.metrics.map(m => `
+              <div class="mobile-metric">
+                <span class="mobile-metric-val">${m.value}</span>
+                <span class="mobile-metric-label">${m.label}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
     }).join('');
+
     container.innerHTML = `<div class="mobile-platform-cards">${cards}</div>`;
-  } else { loadSignal(1); }
+  } else {
+    // On desktop, we just load the first signal (or keep current state)
+    // For simplicity, we default to signal 1
+    loadSignal(1);
+  }
 }
+
+// Mobile Process Steps Renderer
 function renderMobileProcess() {
   const processSection = document.querySelector('.research-process .container');
   if (!processSection || window.innerWidth > 768) return;
-  const steps = [{num:'01',title:'Expert Selection',items:['We source operational experts with P&L responsibility, not market observers.','Current or former leaders who directly impact business outcomes in their field.']},{num:'02',title:'Insight Formation',items:['Experts write detailed notes on specific topics within their domain.','Each note follows a consistent structure to ensure clarity and investment relevance.']},{num:'03',title:'Financial Translation',items:['Our equity analysts collaborate with experts to translate insights into financial impact.','Technical developments are connected to their effects on company fundamentals.']},{num:'04',title:'Investment Context',items:['Independent experts verify technical accuracy and economic soundness.','Published on Sapexa platform with timely delivery to institutional investors.']}];
-  const mobileSteps = steps.map(step => `<div class="mobile-process-card"><div class="mobile-process-header"><div class="mobile-process-num">${step.num}</div><h3 class="mobile-process-title">${step.title}</h3></div><ul class="mobile-process-desc">${step.items.map(item => `<li>${item}</li>`).join('')}</ul></div>`).join('');
+
+  const steps = [
+    {
+      num: '01',
+      title: 'Expert Selection',
+      items: [
+        'We source operational experts with P&L responsibility, not market observers.',
+        'Current or former leaders who directly impact business outcomes in their field.'
+      ]
+    },
+    {
+      num: '02',
+      title: 'Insight Formation',
+      items: [
+        'Experts write detailed notes on specific topics within their domain.',
+        'Each note follows a consistent structure to ensure clarity and investment relevance.'
+      ]
+    },
+    {
+      num: '03',
+      title: 'Financial Translation',
+      items: [
+        'Our equity analysts collaborate with experts to translate insights into financial impact.',
+        'Technical developments are connected to their effects on company fundamentals.'
+      ]
+    },
+    {
+      num: '04',
+      title: 'Investment Context',
+      items: [
+        'Independent experts verify technical accuracy and economic soundness.',
+        'Published on Sapexa platform with timely delivery to institutional investors.'
+      ]
+    }
+  ];
+
+  const mobileSteps = steps.map(step => `
+    <div class="mobile-process-card">
+      <div class="mobile-process-header">
+        <div class="mobile-process-num">${step.num}</div>
+        <h3 class="mobile-process-title">${step.title}</h3>
+      </div>
+      <ul class="mobile-process-desc">
+        ${step.items.map(item => `<li>${item}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+
+  // Check if mobile steps already exist
   if (!document.querySelector('.mobile-process-steps')) {
     const visualDiv = processSection.querySelector('.process-visual');
-    if (visualDiv) { visualDiv.insertAdjacentHTML('afterend', `<div class="mobile-process-steps">${mobileSteps}</div>`); }
+    if (visualDiv) {
+      visualDiv.insertAdjacentHTML('afterend', `<div class="mobile-process-steps">${mobileSteps}</div>`);
+    }
   }
 }
-const origDOMReady = document.addEventListener('DOMContentLoaded', () => { renderMobilePlatform(); renderMobileProcess(); window.addEventListener('resize', () => { renderMobilePlatform(); renderMobileProcess(); }); });

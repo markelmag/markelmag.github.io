@@ -922,8 +922,11 @@ footer p {
     .plat-window {
         display: block !important;
         height: auto !important;
-        padding: 1.5rem;
-        background: var(--c-surface);
+        padding: 1.5rem !important;
+        background: #F1F5F9 !important;
+        /* Platform gray background */
+        border: 1px solid var(--c-border);
+        border-radius: var(--rad-md);
     }
 
     .plat-sidebar,
@@ -952,23 +955,42 @@ footer p {
 
     .mobile-platform-card {
         flex: 0 0 85%;
-        scroll-snap-align: start;
+        scroll-snap-align: center;
         background: #fff;
         border: 1px solid var(--c-border);
-        border-radius: var(--rad-md);
-        padding: 1.5rem;
-        cursor: pointer;
-        transition: transform 0.2s;
+        border-radius: 8px;
+        /* Tighter window radius */
+        /* UI Window Style */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        /* Lifted window shadow */
+        overflow: hidden;
+        /* For header clipping */
+    }
+
+    /* Window Header Strip */
+    .mobile-platform-card::before {
+        content: "";
+        display: block;
+        height: 6px;
+        background: var(--c-text-main);
+        /* Top active strip */
+        width: 100%;
     }
 
     .mobile-platform-card:active {
         transform: scale(0.98);
     }
 
+    .mobile-card-content-wrap {
+        padding: 1.5rem;
+    }
+
     .mobile-card-ticker {
         font-weight: 700;
-        font-size: 1.1rem;
-        color: var(--c-text-main);
+        font-size: 0.9rem;
+        color: var(--c-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
         margin-bottom: 0.5rem;
     }
 
@@ -976,55 +998,61 @@ footer p {
         display: inline-block;
         font-size: 0.7rem;
         font-weight: 600;
-        color: var(--c-text-muted);
-        background: var(--c-surface);
+        color: var(--c-text-main);
+        background: #F3F4F6;
         padding: 3px 8px;
         border-radius: 4px;
         margin-bottom: 0.75rem;
     }
 
     .mobile-card-title {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
         font-weight: 600;
         color: var(--c-text-main);
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
         line-height: 1.3;
     }
 
     .mobile-card-body {
-        font-size: 0.9rem;
-        line-height: 1.5;
-        color: var(--c-text-muted);
-        margin-bottom: 1rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #374151;
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        /* Padded inner container */
     }
 
+    /* Metrics Grid */
     .mobile-card-metrics {
-        display: flex;
-        gap: 1rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--c-border);
+        /* Grid lines */
+        border-top: 1px solid var(--c-border);
     }
 
     .mobile-metric {
-        flex: 1;
-        background: var(--c-surface);
-        padding: 0.75rem;
-        border-radius: 6px;
+        background: #fff;
+        padding: 1rem;
         text-align: center;
     }
 
     .mobile-metric-val {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
         font-weight: 700;
         color: var(--c-text-main);
         display: block;
-        margin-bottom: 0.25rem;
     }
 
     .mobile-metric-label {
         font-size: 0.7rem;
         color: var(--c-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
 
-    /* Process Steps - Simple Cards */
+    /* Process Steps - Boxed & Centered */
     .process-visual {
         display: none !important;
     }
@@ -1032,30 +1060,41 @@ footer p {
     .mobile-process-steps {
         display: flex;
         flex-direction: column;
-        gap: 2.5rem;
+        gap: 1.5rem;
         margin-top: 2rem;
-        padding-left: 0.5rem;
+        padding: 0 1rem;
     }
 
     .mobile-process-card {
-        background: transparent;
-        padding: 0;
-        text-align: left;
+        background: #fff;
+        border: 1px solid var(--c-border);
+        /* The Box */
+        border-radius: var(--rad-md);
+        padding: 2rem 1.5rem;
+        text-align: center;
+        /* Centered */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
 
     .mobile-process-header {
         display: flex;
-        align-items: baseline;
-        gap: 0.75rem;
-        margin-bottom: 0.5rem;
+        flex-direction: column;
+        /* Stacked */
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
     }
 
     .mobile-process-num {
         font-family: var(--font-sans);
         font-weight: 700;
-        font-size: 1.1rem;
-        color: var(--c-accent);
-        opacity: 0.6;
+        font-size: 3rem;
+        /* Big subtle number */
+        line-height: 1;
+        color: var(--c-border);
+        /* Subtle */
+        margin-bottom: -0.5rem;
+        /* Tighten */
     }
 
     .mobile-process-title {
@@ -1065,12 +1104,20 @@ footer p {
         margin: 0;
     }
 
-    .mobile-process-desc {
+    .mobile-process-body {
+        /* Container for separated text blocks */
+    }
+
+    .mobile-process-text {
         font-size: 1rem;
         line-height: 1.6;
         color: var(--c-text-muted);
-        margin: 0;
-        padding-left: 0;
+        margin-bottom: 1rem;
+        /* Separation */
+    }
+
+    .mobile-process-text:last-child {
+        margin-bottom: 0;
     }
 }
 

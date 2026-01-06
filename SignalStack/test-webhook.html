@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Webhook Test</title>
+</head>
+
+<body>
+    <h1>Direct Webhook Test</h1>
+    <p>Click the button to test if your Google Apps Script webhook is working:</p>
+    <button onclick="testWebhook()">Test Webhook</button>
+    <p id="result"></p>
+
+    <script>
+        async function testWebhook() {
+            const result = document.getElementById('result');
+            result.textContent = 'Testing...';
+
+            const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwrvaR68wCID7eOBqeDFAL2Y8k9r6lhXQBJ9mecGSMY16-wehyLDLOLqPdrvSmDJwqCcA/exec';
+            const testEmail = 'test@example.com';
+            const url = `${WEBHOOK_URL}?email=${encodeURIComponent(testEmail)}&source=direct-test`;
+
+            console.log('Testing URL:', url);
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+
+                result.textContent = '✓ Request sent! Check your Google Sheet for "test@example.com"';
+                result.style.color = 'green';
+            } catch (err) {
+                result.textContent = '✗ Error: ' + err.message;
+                result.style.color = 'red';
+                console.error('Error:', err);
+            }
+        }
+    </script>
+</body>
+
+</html>

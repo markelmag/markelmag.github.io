@@ -1,0 +1,67 @@
+<svg width="1200" height="400" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Styles -->
+  <style>
+    .line { stroke: #E2E8F0; stroke-width: 2; }
+    .node-bg { fill: #FFFFFF; stroke: #E2E8F0; stroke-width: 1; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.02)); }
+    .icon { stroke: #0F172A; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .step-num { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; fill: #94A3B8; letter-spacing: 0.1em; }
+    .label { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; fill: #0F172A; }
+    .sub-label { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; fill: #64748B; }
+  </style>
+
+  <!-- Connecting Line -->
+  <line x1="150" y1="180" x2="1050" y2="180" class="line" stroke-dasharray="8 8" />
+
+  <!-- Step 1: Expert Selection -->
+  <g transform="translate(150, 180)">
+    <circle cx="0" cy="0" r="40" class="node-bg" />
+    <!-- Icon: User Check -->
+    <path d="M-10 5 C-10 5 -5 12 0 12 C0 12 10 -2 10 -2" class="icon" />
+    <circle cx="0" cy="-8" r="6" class="icon" />
+    <path d="M-12 15 C-12 15 -8 22 8 22" stroke="none" /> 
+    <path d="M-10 12 A15 15 0 0 1 10 12" class="icon" stroke-dasharray="20 20" />
+    
+    <text x="0" y="-60" text-anchor="middle" class="step-num">STEP 01</text>
+    <text x="0" y="70" text-anchor="middle" class="label">Expert Selection</text>
+    <text x="0" y="90" text-anchor="middle" class="sub-label">Vetting Top 1% Operators</text>
+  </g>
+
+  <!-- Step 2: Insight Formation -->
+  <g transform="translate(450, 180)">
+    <circle cx="0" cy="0" r="40" class="node-bg" />
+    <!-- Icon: Document Pen -->
+    <path d="M-10 -12 H10 V12 H-10 Z" class="icon" />
+    <path d="M-6 -6 H6" class="icon" />
+    <path d="M-6 0 H6" class="icon" />
+    <path d="M-6 6 H2" class="icon" />
+    
+    <text x="0" y="-60" text-anchor="middle" class="step-num">STEP 02</text>
+    <text x="0" y="70" text-anchor="middle" class="label">Insight Formation</text>
+    <text x="0" y="90" text-anchor="middle" class="sub-label">Structured Written Analysis</text>
+  </g>
+
+  <!-- Step 3: Financial Translation -->
+  <g transform="translate(750, 180)">
+    <circle cx="0" cy="0" r="40" class="node-bg" />
+    <!-- Icon: Table/Chart -->
+    <rect x="-12" y="-12" width="24" height="24" rx="2" class="icon" />
+    <line x1="-12" y1="-2" x2="12" y2="-2" class="icon" />
+    <line x1="-2" y1="-2" x2="-2" y2="12" class="icon" />
+    
+    <text x="0" y="-60" text-anchor="middle" class="step-num">STEP 03</text>
+    <text x="0" y="70" text-anchor="middle" class="label">Financial Translation</text>
+    <text x="0" y="90" text-anchor="middle" class="sub-label">Mapping to Revenue/Margins</text>
+  </g>
+
+  <!-- Step 4: Investment Context -->
+  <g transform="translate(1050, 180)">
+    <circle cx="0" cy="0" r="40" class="node-bg" />
+    <!-- Icon: Target/Diamond -->
+    <path d="M0 -15 L15 0 L0 15 L-15 0 Z" class="icon" />
+    <circle cx="0" cy="0" r="4" class="icon" fill="#0F172A" />
+    
+    <text x="0" y="-60" text-anchor="middle" class="step-num">STEP 04</text>
+    <text x="0" y="70" text-anchor="middle" class="label">Investment Context</text>
+    <text x="0" y="90" text-anchor="middle" class="sub-label">Decision-Ready Signal</text>
+  </g>
+</svg>

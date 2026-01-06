@@ -1,0 +1,11 @@
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="600" height="600" fill="transparent"/>
+<!-- Abstract Data Columns -->
+<rect x="100" y="300" width="80" height="200" rx="4" fill="#F1F5F9"/>
+<rect x="200" y="250" width="80" height="250" rx="4" fill="#E2E8F0"/>
+<rect x="300" y="150" width="80" height="350" rx="4" fill="#94A3B8"/>
+<rect x="400" y="100" width="80" height="400" rx="4" fill="#0F172A"/>
+<!-- Signal overlay -->
+<path d="M50 450L150 400L250 350L350 250L450 150L550 100" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
+<circle cx="450" cy="150" r="8" fill="#2563EB"/>
+</svg>

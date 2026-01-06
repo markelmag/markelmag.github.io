@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SignalStack | Institutional Investment Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <canvas id="bg-canvas"></canvas>
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">SignalStack</div>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="#platform">Platform</a></li>
+          <li><a href="#problem">Why Us</a></li>
+          <li><a href="#process">Our Process</a></li>
+        </ul>
+      </nav>
+      <a href="#join" class="btn btn-secondary">Request Access</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1 class="hero-headline">
+            Expert knowledge.<br />
+            <span class="text-gradient">Structured for investment decisions.</span>
+          </h1>
+          <p class="hero-subhead">
+            Our selected experts publish structured, written research with direct investment relevance.
+          </p>
+          <div class="hero-cta">
+            <form class="waitlist-form" id="hero-form">
+              <input type="email" placeholder="work@fund.com" required />
+              <button type="submit" class="btn btn-primary">Join the Waitlist</button>
+            </form>
+            <p class="form-subtext">Exclusive access for qualified investors.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform Preview Section -->
+    <section class="platform-preview" id="platform">
+      <div class="container">
+        <!-- App Container: Final Minimalist -->
+        <div class="plat-window">
+          <!-- Sidebar: Discovery -->
+          <div class="plat-sidebar">
+            <div class="plat-header">
+              <span class="plat-brand">SIGNALSTACK</span>
+              <span class="plat-badge">TERMINAL</span>
+            </div>
+            <div class="plat-nav">
+              <div class="nav-group">
+                <div class="nav-label">INTELLIGENCE</div>
+                <div class="nav-item active">Live Feed</div>
+                <div class="nav-item">Watchlist</div>
+                <div class="nav-item">Screener</div>
+              </div>
+              <div class="nav-group">
+                <div class="nav-label">SECTORS</div>
+                <div class="nav-item">Semiconductors</div>
+                <div class="nav-item">FinTech</div>
+                <div class="nav-item">Software</div>
+              </div>
+            </div>
+
+            <div class="plat-feed-list">
+              <!-- Javascript will handle click events on these -->
+              <div class="signal-item active" onclick="loadSignal(1)">
+                <div class="signal-top">
+                  <span class="signal-ticker">NVDA</span>
+                  <span class="signal-time">2m ago</span>
+                </div>
+                <div class="signal-title">Blackwell CoWoS Yields</div>
+                <div class="signal-meta">Supply Chain • High Impact</div>
+              </div>
+
+              <div class="signal-item" onclick="loadSignal(2)">
+                <div class="signal-top">
+                  <span class="signal-ticker">LLY</span>
+                  <span class="signal-time">1h ago</span>
+                </div>
+                <div class="signal-title">Peptide Synthesis Shift</div>
+                <div class="signal-meta">Manufacturing • Med Impact</div>
+              </div>
+
+              <div class="signal-item" onclick="loadSignal(3)">
+                <div class="signal-top">
+                  <span class="signal-ticker">VRT</span>
+                  <span class="signal-time">4h ago</span>
+                </div>
+                <div class="signal-title">Liquid Cooling Adoption</div>
+                <div class="signal-meta">Infra • High Impact</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main: Reader -->
+          <div class="plat-main">
+            <div class="plat-toolbar">
+              <div class="toolbar-crumbs">Market Intelligence / Semiconductors / NVDA</div>
+              <div class="toolbar-actions">
+                <button class="btn-xs">Export PDF</button>
+                <button class="btn-xs primary">Contact Expert</button>
+              </div>
+            </div>
+            <div class="plat-content" id="plat-content">
+              <!-- Inject Content Here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem" id="problem">
+      <div class="container">
+        <div class="section-badge">The Problem</div>
+        <h2>Most expert insight disappears after the call.</h2>
+        <div class="clean-grid">
+          <div class="clean-card">
+            <div class="card-num">01</div>
+            <h3>Unscalable Access</h3>
+            <p>Expert insight is delivered through 1-to-1 calls that don’t scale and can’t be systematically reused.</p>
+          </div>
+          <div class="clean-card">
+            <div class="card-num">02</div>
+            <h3>Unstructured Signal</h3>
+            <p>Valuable expert knowledge is fragmented, repetitive, and difficult to compare across conversations.</p>
+          </div>
+          <div class="clean-card">
+            <div class="card-num">03</div>
+            <h3>Missing Financial Translation</h3>
+            <p>Deep technical insight rarely arrives mapped to revenue, margin, or stock-level impact.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research Process Section -->
+    <section class="research-process" id="process">
+      <div class="container">
+        <div class="section-badge">Our Process</div>
+        <h2>Structured for clarity.</h2>
+        <p class="section-intro">How we turn raw expert knowledge into institutional-grade investment signal.</p>
+
+        <div class="process-visual">
+          <svg width="100%" height="auto" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="interactive-svg">
+            <style>
+              .proc-line {
+                stroke: #E2E8F0;
+                stroke-width: 2;
+                stroke-dasharray: 8 8;
+              }
+
+              .proc-node {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: pointer;
+              }
+
+              .proc-bg {
+                fill: #FFFFFF;
+                stroke: #E2E8F0;
+                stroke-width: 1;
+                filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.02));
+                transition: all 0.3s;
+              }
+
+              .proc-icon {
+                stroke: #0F172A;
+                stroke-width: 1.5;
+                transition: all 0.3s;
+              }
+
+              .proc-num {
+                font-family: 'Inter', sans-serif;
+                font-size: 12px;
+                font-weight: 700;
+                fill: #94A3B8;
+                letter-spacing: 0.1em;
+                transition: all 0.3s;
+              }
+
+              .proc-label {
+                font-family: 'Inter', sans-serif;
+                font-size: 18px;
+                font-weight: 600;
+                fill: #0F172A;
+                transition: all 0.3s;
+              }
+
+              .proc-sub {
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                fill: #64748B;
+                opacity: 0;
+                transform: translateY(-5px);
+                transition: all 0.3s;
+              }
+
+              /* Hover States */
+              .proc-node:hover .proc-bg {
+                fill: #0F172A;
+                stroke: #0F172A;
+                transform: scale(1.1);
+                filter: drop-shadow(0px 20px 30px rgba(15, 23, 42, 0.15));
+              }
+
+              .proc-node:hover .proc-icon {
+                stroke: #FFFFFF;
+              }
+
+              .proc-node:hover .proc-num {
+                fill: #64748B;
+                opacity: 0;
+              }
+
+              /* Hide number on hover */
+
+              .proc-node:hover .proc-label {
+                transform: translateY(-5px);
+              }
+
+              /* Move title UP slightly */
+
+              .proc-node:hover .proc-sub {
+                opacity: 1;
+                transform: translateY(20px);
+              }
+
+              /* Move sub DOWN more = Wider Gap */
+
+              /* Active State (JS) */
+              .proc-node.active .proc-line {
+                stroke: #0F172A;
+                stroke-dasharray: 0;
+              }
+            </style>
+
+            <!-- Connector -->
+            <line x1="150" y1="180" x2="1050" y2="180" class="proc-line" />
+
+            <!-- Step 1 -->
+            <g class="proc-node" transform="translate(150, 180)">
+              <circle cx="0" cy="0" r="50" class="proc-bg" />
+              <g transform="scale(1.2)">
+                <path d="M-10 5 C-10 5 -5 12 0 12 C0 12 10 -2 10 -2" class="proc-icon" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="0" cy="-8" r="6" class="proc-icon" fill="none" />
+              </g>
+              <text x="0" y="-70" text-anchor="middle" class="proc-num">STEP 01</text>
+              <text x="0" y="85" text-anchor="middle" class="proc-label">Expert Selection</text>
+              <text x="0" y="90" text-anchor="middle" class="proc-sub">Vetting Top 1% Operators</text>
+            </g>
+
+            <!-- Step 2 -->
+            <g class="proc-node" transform="translate(450, 180)">
+              <circle cx="0" cy="0" r="50" class="proc-bg" />
+              <g transform="scale(1.2)">
+                <path d="M-10 -12 H10 V12 H-10 Z" class="proc-icon" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M-6 -6 H6" class="proc-icon" stroke-linecap="round" />
+                <path d="M-6 0 H6" class="proc-icon" stroke-linecap="round" />
+                <path d="M-6 6 H2" class="proc-icon" stroke-linecap="round" />
+              </g>
+              <text x="0" y="-70" text-anchor="middle" class="proc-num">STEP 02</text>
+              <text x="0" y="85" text-anchor="middle" class="proc-label">Insight Formation</text>
+              <text x="0" y="90" text-anchor="middle" class="proc-sub">Structured Written Analysis</text>
+            </g>
+
+            <!-- Step 3 -->
+            <g class="proc-node" transform="translate(750, 180)">
+              <circle cx="0" cy="0" r="50" class="proc-bg" />
+              <g transform="scale(1.2)">
+                <rect x="-12" y="-12" width="24" height="24" rx="2" class="proc-icon" fill="none"
+                  stroke-linecap="round" />
+                <line x1="-12" y1="-2" x2="12" y2="-2" class="proc-icon" />
+                <line x1="-2" y1="-2" x2="-2" y2="12" class="proc-icon" />
+              </g>
+              <text x="0" y="-70" text-anchor="middle" class="proc-num">STEP 03</text>
+              <text x="0" y="85" text-anchor="middle" class="proc-label">Financial Translation</text>
+              <text x="0" y="90" text-anchor="middle" class="proc-sub">Revenue & Margin Impact</text>
+            </g>
+
+            <!-- Step 4 -->
+            <g class="proc-node" transform="translate(1050, 180)">
+              <circle cx="0" cy="0" r="50" class="proc-bg" />
+              <g transform="scale(1.2)">
+                <path d="M0 -15 L15 0 L0 15 L-15 0 Z" class="proc-icon" fill="none" stroke-linejoin="round" />
+                <circle cx="0" cy="0" r="4" class="proc-icon" fill="currentColor" stroke="none" />
+              </g>
+              <text x="0" y="-70" text-anchor="middle" class="proc-num">STEP 04</text>
+              <text x="0" y="85" text-anchor="middle" class="proc-label">Investment Context</text>
+              <text x="0" y="90" text-anchor="middle" class="proc-sub">Decision-Ready Signal</text>
+            </g>
+          </svg>
+
+          <!-- Detail Popups Container -->
+          <div class="proc-overlays">
+            <!-- Popup 1 -->
+            <div class="proc-popup" id="popup-1">
+              <h4>Expert Selection</h4>
+              <ul>
+                <li><strong>The Filter:</strong> We screen for P&L responsibility and active roles.</li>
+                <li><strong>Rejection Rate:</strong> We decline &gt;95% of applicants. No generalists.</li>
+              </ul>
+            </div>
+
+            <!-- Popup 2 -->
+            <div class="proc-popup" id="popup-2">
+              <h4>Insight Formation</h4>
+              <ul>
+                <li><strong>No Noise:</strong> We strip away valid-sounding but empty rhetoric.</li>
+                <li><strong>Format:</strong> Standardized memos: Context, Catalyst, and Implication.</li>
+              </ul>
+            </div>
+
+            <!-- Popup 3 -->
+            <div class="proc-popup" id="popup-3">
+              <h4>Financial Translation</h4>
+              <ul>
+                <li><strong>The Bridge:</strong> Expert views mapped intimately to P&L line items.</li>
+                <li><strong>KPIs:</strong> Direct impact on ASPs, margin structure, and Capex.</li>
+              </ul>
+            </div>
+
+            <!-- Popup 4 -->
+            <div class="proc-popup" id="popup-4">
+              <h4>Investment Context</h4>
+              <ul>
+                <li><strong>Consensus Check:</strong> Comparing variant views to street estimates.</li>
+                <li><strong>Time Horizon:</strong> Distinguishing quarterly beats from structural shifts.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="join">
+      <div class="container">
+        <h2>Secure your edge.</h2>
+        <p>Join the waitlist for early access to the platform.</p>
+        <form class="waitlist-form" id="footer-form">
+          <input type="email" placeholder="work@fund.com" required />
+          <button type="submit" class="btn btn-primary">Request Access</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 SignalStack Research. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+
+</html>

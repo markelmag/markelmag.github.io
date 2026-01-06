@@ -1,0 +1,247 @@
+const data = {
+  1: {
+    tag: "Semiconductors",
+    ticker: "NVDA",
+    title: "Blackwell CoWoS Yield Analysis",
+    body: "Our breakdown of TSMC's CoWoS-L capacity allocation suggests a 20% upside to consensus volume estimates. The yield issues reported in Q3 were largely due to a specific bonding tool alignment drift which has been rectified.",
+    metrics: [
+      { label: "Yield Rate", value: "99.4%" },
+      { label: "Vol Upside", value: "+20%" }
+    ]
+  },
+  2: {
+    tag: "Biotech",
+    ticker: "LLY",
+    title: "Peptide Synthesis Bottlenecks",
+    body: "Liquid-phase synthesis (LPS) is failing to meet purity standards at commercial scale. This entrenches the moat for existing solid-phase (SPPS) capacity holders. New entrants face 12-18 month delays.",
+    metrics: [
+      { label: "Purity Gap", value: "-4.2%" },
+      { label: "Delay", value: "18 mo" }
+    ]
+  },
+  3: {
+    tag: "Infrastructure",
+    ticker: "VRT",
+    title: "Liquid Cooling Market Share",
+    body: "Direct-to-Chip (DLC) cooling is winning 80% of retrofit RFPs. Recent safety data has assuaged insurer concerns regarding leakage, opening the floodgates for enterprise adoption.",
+    metrics: [
+      { label: "RFP Win Rate", value: "82%" },
+      { label: "TAM CAGR", value: "45%" }
+    ]
+  }
+};
+
+function loadSignal(id) {
+  const signal = data[id];
+  const container = document.getElementById('plat-content');
+
+  // UI Active State
+  document.querySelectorAll('.signal-item').forEach(el => el.classList.remove('active'));
+  // Simple index check for demo
+  const items = document.querySelectorAll('.signal-item');
+  if (items[id - 1]) items[id - 1].classList.add('active');
+
+  // Breadcrumb Update
+  document.querySelector('.toolbar-crumbs').innerText = `Market Intelligence / ${signal.tag} / ${signal.ticker}`;
+
+  // Render Clean Content
+  container.innerHTML = `
+        <div class="report-header">
+            <span class="report-tag">${signal.tag}</span>
+            <h1 class="report-title">${signal.title}</h1>
+        </div>
+        
+        <div class="report-section">
+            <span class="sec-label">INVESTMENT THESIS</span>
+            <p class="sec-body">${signal.body}</p>
+        </div>
+
+        <div class="report-section">
+            <span class="sec-label">KEY METRICS</span>
+            <div class="metric-row">
+                ${signal.metrics.map(m => `
+                    <div class="metric-box">
+                        <span class="metric-val">${m.value}</span>
+                        <span class="metric-name">${m.label}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadSignal(1);
+
+  // Form handling with Formspree
+  const FORMSPREE_URL = 'https://formspree.io/f/mojavory';
+
+  document.querySelectorAll('form').forEach(f => {
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = f.querySelector('button');
+      const input = f.querySelector('input[type="email"]');
+      const email = input.value;
+
+      btn.disabled = true;
+      btn.innerText = "Saving...";
+
+      try {
+        const response = await fetch(FORMSPREE_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: email,
+            source: f.id || 'hero'
+          })
+        });
+
+        if (response.ok) {
+          btn.innerText = "✓ Joined!";
+          input.value = '';
+          setTimeout(() => {
+            btn.innerText = "Join the Waitlist";
+            btn.disabled = false;
+          }, 3000);
+        } else {
+          throw new Error('Submission failed');
+        }
+      } catch (err) {
+        console.error('Waitlist error:', err);
+        btn.innerText = "Error - Try Again";
+        btn.disabled = false;
+      }
+    });
+  });
+
+  // Research Process Interactions
+  const steps = document.querySelectorAll('.proc-node');
+  const popups = document.querySelectorAll('.proc-popup');
+
+  if (steps.length && popups.length) {
+    steps.forEach((step, index) => {
+      // Note: index matches the popup order (0 -> popup-1)
+      step.addEventListener('mouseenter', () => {
+        popups.forEach(p => p.classList.remove('active')); // Reset others
+        if (popups[index]) popups[index].classList.add('active');
+      });
+
+      step.addEventListener('mouseleave', () => {
+        if (popups[index]) popups[index].classList.remove('active');
+      });
+    });
+  }
+});
+
+// Experimental: Interactive Data Grid
+class GridAnimation {
+  constructor() {
+    this.canvas = document.getElementById('bg-canvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    this.cells = [];
+    this.cellSize = 60; // Wide squares as requested
+    this.mouse = { x: -1000, y: -1000 };
+
+    this.init();
+    this.animate();
+    this.addListeners();
+  }
+
+  init() {
+    this.resize();
+    this.createGrid();
+  }
+
+  resize() {
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
+    this.createGrid();
+  }
+
+  createGrid() {
+    this.cells = [];
+    const cols = Math.ceil(this.width / this.cellSize);
+    const rows = Math.ceil(this.height / this.cellSize);
+
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        this.cells.push({
+          x: x * this.cellSize,
+          y: y * this.cellSize,
+          baseX: x * this.cellSize,
+          baseY: y * this.cellSize,
+          size: 1, // Scale factor
+          opacity: 0
+        });
+      }
+    }
+  }
+
+  addListeners() {
+    window.addEventListener('resize', () => this.resize());
+    window.addEventListener('mousemove', (e) => {
+      this.mouse.x = e.clientX;
+      this.mouse.y = e.clientY;
+    });
+  }
+
+  animate() {
+    this.ctx.clearRect(0, 0, this.width, this.height);
+
+    this.cells.forEach(cell => {
+      // Distance from mouse
+      const dx = this.mouse.x - (cell.baseX + this.cellSize / 2);
+      const dy = this.mouse.y - (cell.baseY + this.cellSize / 2);
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const maxDist = 400; // Large radius for "wide" feel
+
+      // Calculate effect based on proximity
+      let targetSize = 1;
+      let targetOpacity = 0.05; // Base visibility
+
+      if (dist < maxDist) {
+        const force = (maxDist - dist) / maxDist; // 0 to 1
+        // 3D-like effect: squares get smaller/further away or larger/closer?
+        // Let's go with "scale up" to look like they are coming forward
+        targetSize = 1 + (force * 0.8);
+        targetOpacity = 0.05 + (force * 0.2);
+
+        // Optional: Move slightly away from cursor for "repel" 3D feel
+        // cell.x = cell.baseX - (dx * force * 0.1);
+        // cell.y = cell.baseY - (dy * force * 0.1);
+      } else {
+        // Return to base
+        // cell.x = cell.baseX;
+        // cell.y = cell.baseY;
+      }
+
+      // Smooth lerp
+      cell.size += (targetSize - cell.size) * 0.1;
+      cell.opacity += (targetOpacity - cell.opacity) * 0.1;
+
+      // Draw
+      this.ctx.fillStyle = `rgba(15, 23, 42, ${cell.opacity})`; // Dark navy/slate color
+      this.ctx.save();
+
+      // Center scale
+      this.ctx.translate(cell.baseX + this.cellSize / 2, cell.baseY + this.cellSize / 2);
+      this.ctx.scale(cell.size, cell.size);
+
+      // Draw square
+      this.ctx.fillRect(-this.cellSize / 2 + 2, -this.cellSize / 2 + 2, this.cellSize - 4, this.cellSize - 4);
+
+      this.ctx.restore();
+    });
+
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
+// Start animation
+new GridAnimation();

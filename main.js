@@ -297,46 +297,32 @@ function renderMobileProcess() {
     {
       num: '01',
       title: 'Expert Selection',
-      items: [
-        'We source operational experts with P&L responsibility, not market observers.',
-        'Current or former leaders who directly impact business outcomes in their field.'
-      ]
+      text: 'We source operational experts with P&L responsibility, not market observers. Current or former leaders who directly impact business outcomes in their field.'
     },
     {
       num: '02',
       title: 'Insight Formation',
-      items: [
-        'Experts write detailed notes on specific topics within their domain.',
-        'Each note follows a consistent structure to ensure clarity and investment relevance.'
-      ]
+      text: 'Experts write detailed notes on specific topics within their domain. Each note follows a consistent structure to ensure clarity and investment relevance.'
     },
     {
       num: '03',
       title: 'Financial Translation',
-      items: [
-        'Our equity analysts collaborate with experts to translate insights into financial impact.',
-        'Technical developments are connected to their effects on company fundamentals.'
-      ]
+      text: 'Our equity analysts collaborate with experts to translate insights into financial impact. Technical developments are connected to their effects on company fundamentals.'
     },
     {
       num: '04',
       title: 'Investment Context',
-      items: [
-        'Independent experts verify technical accuracy and economic soundness.',
-        'Published on Sapexa platform with timely delivery to institutional investors.'
-      ]
+      text: 'Independent experts verify technical accuracy and economic soundness. Published on Sapexa platform with timely delivery to institutional investors.'
     }
   ];
 
   const mobileSteps = steps.map(step => `
     <div class="mobile-process-card">
       <div class="mobile-process-header">
-        <div class="mobile-process-num">${step.num}</div>
+        <span class="mobile-process-num">${step.num}</span>
         <h3 class="mobile-process-title">${step.title}</h3>
       </div>
-      <ul class="mobile-process-desc">
-        ${step.items.map(item => `<li>${item}</li>`).join('')}
-      </ul>
+      <p class="mobile-process-desc">${step.text}</p>
     </div>
   `).join('');
 

@@ -70,7 +70,7 @@ function loadSignal(id) {
     `;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => { renderMobilePlatform(); renderMobileProcess(); window.addEventListener('resize', () => { renderMobilePlatform(); renderMobileProcess(); });
   loadSignal(1);
 
   // Form handling with Formspree
@@ -245,3 +245,27 @@ class GridAnimation {
 
 // Start animation
 new GridAnimation();
+
+// Mobile Platform Cards Renderer
+function renderMobilePlatform() {
+  const container = document.getElementById('plat-content');
+  if (!container) return;
+  if (window.innerWidth <= 768) {
+    const cards = Object.keys(data).map(id => {
+      const signal = data[id];
+      return `<div class="mobile-platform-card"><div class="mobile-card-ticker">${signal.ticker}</div><div class="mobile-card-tag">${signal.tag}</div><div class="mobile-card-title">${signal.title}</div><div class="mobile-card-body">${signal.body.substring(0, 150)}...</div><div class="mobile-card-metrics">${signal.metrics.map(m => `<div class="mobile-metric"><span class="mobile-metric-val">${m.value}</span><span class="mobile-metric-label">${m.label}</span></div>`).join('')}</div></div>`;
+    }).join('');
+    container.innerHTML = `<div class="mobile-platform-cards">${cards}</div>`;
+  } else { loadSignal(1); }
+}
+function renderMobileProcess() {
+  const processSection = document.querySelector('.research-process .container');
+  if (!processSection || window.innerWidth > 768) return;
+  const steps = [{num:'01',title:'Expert Selection',items:['We source operational experts with P&L responsibility, not market observers.','Current or former leaders who directly impact business outcomes in their field.']},{num:'02',title:'Insight Formation',items:['Experts write detailed notes on specific topics within their domain.','Each note follows a consistent structure to ensure clarity and investment relevance.']},{num:'03',title:'Financial Translation',items:['Our equity analysts collaborate with experts to translate insights into financial impact.','Technical developments are connected to their effects on company fundamentals.']},{num:'04',title:'Investment Context',items:['Independent experts verify technical accuracy and economic soundness.','Published on Sapexa platform with timely delivery to institutional investors.']}];
+  const mobileSteps = steps.map(step => `<div class="mobile-process-card"><div class="mobile-process-header"><div class="mobile-process-num">${step.num}</div><h3 class="mobile-process-title">${step.title}</h3></div><ul class="mobile-process-desc">${step.items.map(item => `<li>${item}</li>`).join('')}</ul></div>`).join('');
+  if (!document.querySelector('.mobile-process-steps')) {
+    const visualDiv = processSection.querySelector('.process-visual');
+    if (visualDiv) { visualDiv.insertAdjacentHTML('afterend', `<div class="mobile-process-steps">${mobileSteps}</div>`); }
+  }
+}
+const origDOMReady = document.addEventListener('DOMContentLoaded', () => { renderMobilePlatform(); renderMobileProcess(); window.addEventListener('resize', () => { renderMobilePlatform(); renderMobileProcess(); }); });
